@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<project>
+  <target name="clean">
+
+    <echo>${user.dir}</echo>
+    <delete dir="${user.dir}/bin/" />
+    <delete dir="${user.dir}/target" />
+  </target>
+
+  <target name="compile" depends="clean">
+    <mkdir dir="${user.dir}/bin/" />
+    <javac includeantruntime="false" srcdir="${user.dir}/src/"
+           destdir="${user.dir}/bin/"
+           classpath="dest.jar">
+      <classpath>
+        <pathelement path="${user.dir}/javonet-1.5.jar" />
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <property environment="env" />
+    <mkdir dir="${user.dir}/target" />
+    <jar destfile="${user.dir}/target/result.jar" basedir="${user.dir}/bin/">
+      <fileset file="${user.dir}/src/*.dll" />
+      <zipfileset src="${user.dir}/javonet-1.5.jar" />
+    </jar>
+  </target>
+
+</project>
